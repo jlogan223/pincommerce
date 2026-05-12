@@ -1,0 +1,12 @@
+# Never commit local data
+data/
+feeds/
+images/products/
+images/lifestyle/
+images/pins/
+logs/
+*.bak.*
+*.sync-conflict*.*
+*.tmp.*
+.DS_Store
+node_modules/
