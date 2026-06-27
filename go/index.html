@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>The UK Edit — taking you to the retailer…</title>
+<style>
+  html,body{height:100%;margin:0}
+  body{display:flex;align-items:center;justify-content:center;
+       font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+       background:#faf8f5;color:#2b2b2b}
+  .card{text-align:center;max-width:420px;padding:32px}
+  .dot{display:inline-block;width:10px;height:10px;border-radius:50%;
+       background:#c0a16b;margin:0 3px;animation:b 1s infinite ease-in-out}
+  .dot:nth-child(2){animation-delay:.15s}.dot:nth-child(3){animation-delay:.3s}
+  @keyframes b{0%,80%,100%{opacity:.3}40%{opacity:1}}
+  a{color:#9b7a3f}
+  h1{font-size:18px;font-weight:600;margin:18px 0 6px}
+  p{font-size:14px;color:#666;margin:6px 0}
+</style>
+</head>
+<body>
+  <div class="card">
+    <div><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+    <h1>Taking you to the retailer…</h1>
+    <p id="fallback">If you are not redirected automatically,
+       <a id="manual" href="https://www.theukedit.co.uk/">tap here to continue</a>.</p>
+  </div>
+<script>
+(function () {
+  // The destination tracking URL is passed base64url-encoded in ?u= so it
+  // is reconstructed only in the visitor's browser. The click still flows
+  // through the affiliate network so the sale is attributed and commission paid.
+  function b64urlDecode(s) {
+    s = String(s).replace(/-/g, '+').replace(/_/g, '/');
+    while (s.length % 4) s += '=';
+    try { return decodeURIComponent(escape(atob(s))); } catch (e) { return atob(s); }
+  }
+  try {
+    var u = new URLSearchParams(window.location.search).get('u');
+    if (u) {
+      var dest = b64urlDecode(u);
+      if (/^https?:\/\//i.test(dest)) {
+        var m = document.getElementById('manual');
+        if (m) m.setAttribute('href', dest);
+        window.location.replace(dest);
+        return;
+      }
+    }
+  } catch (e) {}
+  // No/invalid target → send to the brand site rather than a dead end.
+  window.location.replace('https://www.theukedit.co.uk/');
+})();
+</script>
+</body>
+</html>
